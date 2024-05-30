@@ -94,6 +94,8 @@ router.post("/login", async(req,res,next)=>{
         _id: foundUser._id,
         email:foundUser.email
         //all the static information must be right here
+
+        //role:foundUser.role-----------------------------------------------------------to add role----------------
     }
     const authToken=jwt.sign(
         payload,//token content
@@ -117,5 +119,10 @@ router.get("/verify",isTokenValid, (req, res, next)=>{
     res.status(200).json({payload:req.payload})
 
 })
+
+//example admins or artists routes-----------------------------------to add------------------------------
+//router.get("/band-route", isTokenValid,isUserBand,(req,res)=>{
+   // res.json({data:"artist secret information "})
+//})
 
 module.exports=router
