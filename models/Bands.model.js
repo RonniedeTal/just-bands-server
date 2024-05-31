@@ -1,4 +1,5 @@
-const mongoose=require("mongoose")
+const mongoose= require("mongoose");
+const Schema=require("mongoose")
 const BandSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -12,7 +13,7 @@ const BandSchema = new mongoose.Schema({
       "Alternative",
       "Grunge",
       "Hardcore",
-      "DeathMetal",
+      "DeathMetal",///mas de 1 artist class
       "Psycodellic",
       "Progressive",
       "Punk",
@@ -22,12 +23,15 @@ const BandSchema = new mongoose.Schema({
     ],
     required: [true, "Choose a Genre "],
   },
+  owner:{
+                    //----------------owner
+  },
   country: {
     type: String,
   },
   crew: {
     type: [Schema.Types.ObjectId],
-    ref: "username",
+    ref: "User",
   },
 });
 const Band = mongoose.model("Band", BandSchema);

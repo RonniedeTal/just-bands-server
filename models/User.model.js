@@ -19,6 +19,7 @@ const userSchema = new Schema(
       required: [true, 'Password is required.']
     }
   },
+  //add img profile --------------------
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`    
     timestamps: true
