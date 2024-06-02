@@ -6,14 +6,14 @@ const BandSchema = new mongoose.Schema({
     required: [true, "Name required"],
   },
   genre: {
-    type: String,
+    type: [String], //gives an array of...
     enum: [
       "Rock",
       "Metal",
       "Alternative",
       "Grunge",
       "Hardcore",
-      "DeathMetal",///mas de 1 artist class
+      "DeathMetal",
       "Psycodellic",
       "Progressive",
       "Punk",
@@ -24,7 +24,8 @@ const BandSchema = new mongoose.Schema({
     required: [true, "Choose a Genre "],
   },
   owner:{
-                    //----------------owner
+        type:Schema.Types.ObjectId,
+        ref:"User",      //----------------added just for one owner of the band
   },
   country: {
     type: String,
@@ -33,6 +34,11 @@ const BandSchema = new mongoose.Schema({
     type: [Schema.Types.ObjectId],
     ref: "User",
   },
-});
+},
+{
+  // this second object adds extra properties: `createdAt` and `updatedAt`    
+  timestamps: true
+}
+);
 const Band = mongoose.model("Band", BandSchema);
 module.exports = Band;

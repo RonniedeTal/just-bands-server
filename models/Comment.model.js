@@ -14,7 +14,12 @@ band:{
     ref:"Band"
 }
 
-})
+} 
+,{
+    // this second object adds extra properties: `createdAt` and `updatedAt`    
+    timestamps: true
+  }
+)
 const Comment=mongoose.model("Comment",CommentSchema);
 module.exports=Comment
 

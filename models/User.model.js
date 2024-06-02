@@ -14,12 +14,23 @@ const userSchema = new Schema(
       lowercase: true,
       trim: true
     },
+    favorite:{
+      type:[Schema.Types.ObjectId],//ask----
+      ref:"Band"
+    },
     password: {
       type: String,
       required: [true, 'Password is required.']
-    }
+    }, 
+    //add img profile --------------------
+    /*profileImage:{
+      type:String,
+      default:"default.jpg"
+    },*/
+
   },
-  //add img profile --------------------
+ 
+  
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`    
     timestamps: true

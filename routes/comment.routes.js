@@ -1,5 +1,6 @@
 const Comment=require("../models/Comment.model")
 const router=require("express").Router()
+const {isTokenValid}=require("../middlewares/auth.middlewares")
 
 //localhost:5005/api/comment-----------post a comment
 router.post("/",async(req, res,next)=>{
@@ -31,7 +32,7 @@ console.log(req.params.commentId);
 
 
 //localhost:5005/api/comment/:comment-----to delete comments
-router.delete("/:commentId", async(req,res,next)=>{
+router.delete("/:commentId",isTokenValid, async(req,res,next)=>{
 
         try {
             await Comment.findByIdAndDelete(req.params.commentId)
