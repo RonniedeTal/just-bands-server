@@ -5,10 +5,17 @@ const BandSchema = new mongoose.Schema({
     type: String,
     required: [true, "Name required"],
   },
+  description:{
+ type:String
+  },
+  profileImage:{
+    type:String,
+    default:""
+  },
   genre: {
     type: [String], //gives an array of...
     enum: [
-      "Rock",
+      "Stoner",
       "Metal",
       "Alternative",
       "Grunge",
@@ -18,7 +25,7 @@ const BandSchema = new mongoose.Schema({
       "Progressive",
       "Punk",
       "Grindcore",
-      "Cumbia",
+      "Others",
       "Thrash"
     ],
     required: [true, "Choose a Genre "],
@@ -33,6 +40,14 @@ const BandSchema = new mongoose.Schema({
   crew: {
     type: [Schema.Types.ObjectId],
     ref: "User",
+  },
+  instagramUrl: {
+    type: String,
+    default: "",
+  },
+  spotifyUrl: {
+    type: String,
+    default: "",
   },
 },
 {

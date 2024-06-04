@@ -3,13 +3,13 @@ const router=require("express").Router()
 const {isTokenValid}=require("../middlewares/auth.middlewares")
 
 //localhost:5005/api/comment-----------post a comment
-router.post("/",async(req, res,next)=>{
+router.post("/",isTokenValid, async(req, res,next)=>{
 console.log(req.body);
     try {
         
-       const response=await  Comment.create({
+      await  Comment.create({
         text:req.body.text,
-        user:req.body.user,
+        user:req.payload._id,
         band:req.body.band
         
     })
@@ -19,6 +19,18 @@ console.log(req.body);
     }
    
 })
+
+router.get("/", isTokenValid,async(req,res,next)=>{
+    console.log(req.params.commentId);
+        try {
+            const response=await Comment.find().populate("user","username").populate("band","name")//ask Jorge
+            res.status(200).json(response)
+        } catch (error) {
+            next(error)
+            
+        }
+    })
+
 router.get("/:commentId", async(req,res,next)=>{
 console.log(req.params.commentId);
     try {

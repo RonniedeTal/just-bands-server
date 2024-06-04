@@ -25,7 +25,7 @@ const userSchema = new Schema(
     //add img profile --------------------
     /*profileImage:{
       type:String,
-      default:"default.jpg"
+      default:""
     },*/
 
   },

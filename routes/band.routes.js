@@ -5,15 +5,19 @@ const Band = require("../models/Bands.model.js");
 //localhost:5005/api/band/---------create a new band----------
 
 router.post("/", isTokenValid, async (req, res, next) => {
-  //router.post("/", (req, res, next) => {
+ 
   console.log(req.body);
   try {
     await Band.create({
-      //Band.create({
+      
       name: req.body.name,
+      description: req.body.description,
+      profileImage: req.body.profileImage,
       genre: req.body.genre,
       country: req.body.country,
       crew: req.body.crew,
+      instagramUrl: req.body.instagramUrl,
+      spotifyUrl: req.body.instagramUrl,
       owner: req.payload._id, //-----comes from...authtoken friday
     });
     res.status(201).json({ message: "band created " });
@@ -27,7 +31,7 @@ router.get("/", async (req, res, next) => {
   try {
     const response = await Band.find(req.query)
       .populate("crew", "username")
-      .populate("owner");
+      .populate("owner", "username");
     res.status(200).json(response);
     console.log(response);
   } catch (error) {
@@ -50,7 +54,7 @@ router.get("/random", async (req, res, next) => {
 //localhost:5005/api/band/:bandId-----------get a band by id-----------------
 router.get("/:bandId", async (req, res, next) => {
   try {
-    const response = await Band.findById(req.params.bandId)//populate() breaks the code
+    const response = await Band.findById(req.params.bandId).populate("owner", "username").populate("crew")
     res.status(200).json(response);
   } catch (error) {
     next(error);
@@ -63,8 +67,13 @@ router.put("/:bandId", async (req, res, next) => {
       req.params.bandId,
       {
         name: req.body.name,
-        genre: req.body.genre,
-        country: req.body.country,
+      description: req.body.description,
+      profileImage: req.body.profileImage,
+      genre: req.body.genre,
+      country: req.body.country,
+      crew: req.body.crew,
+      instagramUrl: req.body.instagramUrl,
+      spotifyUrl: req.body.instagramUrl,
       },
       { new: true }
     );

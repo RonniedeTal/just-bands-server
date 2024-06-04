@@ -9,8 +9,9 @@ router.post("/",(req,res,next)=>{
     try {
         User.create({
             username:req.body.username,
-            email:req.body.email,
-            password:req.body.password
+            email:req.body.email,     //--------------------remove and change
+
+            password:req.body.password//to a put---and create change to findbyid
         })
         res.sendStatus(201)
     } catch (error) {
@@ -27,7 +28,8 @@ router.get("/:userId",async(req,res,next)=>{
     next(error)
 }
 })
-
+//--------------choose a favorite---------------
+//----localhost:5005/api/user/:bandId/favorite---------
 router.patch("/:bandId/favorite",isTokenValid,async(req,res,next)=>{
     try {
         const response =await User.findById(req.payload._id)
