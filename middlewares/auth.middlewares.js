@@ -22,17 +22,10 @@ function isTokenValid(req,res,next){
        }
        
 }
-//function isUserBand(req,res,next){ //-------------------------------to add----------------
-  //console.log(req.payload);
-  //if(req.payload.role==="band") {
-    //next()
-  //}else{
-    //res.status(401).json({errormessage:"just bands"})
- // }
 
     
 //}
 module.exports={
     isTokenValid,
-   // isUserBand------------------------------------------to add-------------------
+   
 }

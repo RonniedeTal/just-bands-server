@@ -22,6 +22,5 @@ const commentRouter=require("./comment.routes")
 router.use("/comment",commentRouter)
 const userRouter=require("./user.routes")
 router.use("/user",userRouter)
-/*const favoriteRouter=require("./favorite.routes")
-router.use("/user/favorite/:bandId",favoriteRouter)*/
+
 module.exports = router;

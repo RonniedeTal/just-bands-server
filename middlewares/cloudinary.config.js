@@ -16,6 +16,12 @@ const storage = new CloudinaryStorage({
     allowed_formats: ["jpg", "png"],
     folder: "images", // The name of the folder where images will be stored in cloudinary
     // resource_type: 'raw' => this is in case you want to upload other type of files, not just images
+    transformation: [
+      { quality: "auto", fetch_format: "auto", width: 500, height: 500, crop: "fill", gravity: "center" },
+    ],
+    eager: [
+      { quality: "auto", fetch_format: "auto", width: 500, height: 500, crop: "fill", gravity: "center", size_limit: "100000" }
+    ]
   },
 });
 

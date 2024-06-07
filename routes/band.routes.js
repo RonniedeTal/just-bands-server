@@ -5,11 +5,9 @@ const Band = require("../models/Bands.model.js");
 //localhost:5005/api/band/---------create a new band----------
 
 router.post("/", isTokenValid, async (req, res, next) => {
- 
   console.log(req.body);
   try {
     await Band.create({
-      
       name: req.body.name,
       description: req.body.description,
       profileImage: req.body.profileImage,
@@ -18,7 +16,7 @@ router.post("/", isTokenValid, async (req, res, next) => {
       crew: req.body.crew,
       instagramUrl: req.body.instagramUrl,
       spotifyUrl: req.body.instagramUrl,
-      owner: req.payload._id, //-----comes from...authtoken friday
+      owner: req.payload._id, 
     });
     res.status(201).json({ message: "band created " });
   } catch (error) {
@@ -54,30 +52,41 @@ router.get("/random", async (req, res, next) => {
 //localhost:5005/api/band/:bandId-----------get a band by id-----------------
 router.get("/:bandId", async (req, res, next) => {
   try {
-    const response = await Band.findById(req.params.bandId).populate("owner", "username").populate("crew")
+    const response = await Band.findById(req.params.bandId)
+      .populate("owner", "username")
+      .populate("crew");
     res.status(200).json(response);
   } catch (error) {
     next(error);
   }
 });
 //localhost:5005/api/band/:bandId----to update the band
-router.put("/:bandId", async (req, res, next) => {
+router.put("/:bandId", isTokenValid, async (req, res, next) => {
   try {
     const response = await Band.findByIdAndUpdate(
       req.params.bandId,
       {
         name: req.body.name,
-      description: req.body.description,
-      profileImage: req.body.profileImage,
-      genre: req.body.genre,
-      country: req.body.country,
-      crew: req.body.crew,
-      instagramUrl: req.body.instagramUrl,
-      spotifyUrl: req.body.instagramUrl,
+        description: req.body.description,
+        profileImage: req.body.profileImage,
+        genre: req.body.genre,
+        country: req.body.country,
+        crew: req.body.crew,
+        instagramUrl: req.body.instagramUrl,
+        spotifyUrl: req.body.instagramUrl,
       },
       { new: true }
     );
     res.status(200).json(response);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.delete("/:bandId", isTokenValid, async (req, res, next) => {
+  try {
+    const response = await Band.findByIdAndDelete(req.params.bandId);
+    res.status(202).json({ message: "Band Deleted" });
   } catch (error) {
     next(error);
   }
